@@ -513,6 +513,15 @@ def pdf_annuel_eleve():
     pdf = creer_pdf_annuel('Relevé annuel', f"Année : {annee.libelle} | Classe : {classe.nom} | Élève : {etudiant.prenom} {etudiant.nom}", donnees, len(trimestres) + 2)
     return send_file(pdf, as_attachment=False, download_name='releve_annuel_eleve.pdf', mimetype='application/pdf')
 
+
+@app.route('/init_db')
+def init_db():
+    with app.app_context():
+        db.create_all()
+    return "Base de données initialisée ✅"
+
+
+
 if __name__ == '__main__':
     initialiser_db()
     port = int(os.environ.get('PORT', 5000))
