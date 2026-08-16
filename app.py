@@ -514,12 +514,24 @@ def pdf_annuel_eleve():
     return send_file(pdf, as_attachment=False, download_name='releve_annuel_eleve.pdf', mimetype='application/pdf')
 
 
+
+
+
+
+
 @app.route('/init_db')
 def init_db():
-    with app.app_context():
-        db.create_all()
-    return "Base de données initialisée ✅"
+    try:
+        with app.app_context():
+            db.create_all()
+        return "Base de données créée avec succès ✅"
+    except Exception as e:
+        return f"Erreur: {e}"
 
+
+
+
+ 
 
 
 if __name__ == '__main__':
